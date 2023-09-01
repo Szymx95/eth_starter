@@ -1,0 +1,22 @@
+{
+  "name": "adapters",
+  "version": "1.0.0",
+  "license": "MIT",
+  "scripts": {
+    "install": "forge install || git submodule update --init --recursive",
+    "build": "forge build",
+    "test": "forge test --no-match-contract ForkTest",
+    "test:fork": "forge test --match-contract ForkTest",
+    "lint:sol": "solhint '{contracts,test}/**/*.sol'",
+    "lint:fmt": "forge fmt --check",
+    "lint:fix": "forge fmt",
+    "lint": "pnpm lint:sol && pnpm lint:fmt",
+    "deploy:localhost:extract": "jq -s '[.[] | reduce .transactions[] as $item ({chain:.chain}; . + {($item.contractName):{(.chain|tostring):$item.contractAddress}}) | del(.chain)] | reduce .[] as $item ({}; . * $item)' broadcast/Deploy.s.sol/*/run-latest.json  > addresses.json",
+    "deploy:localhost:script": "pnpm dotenv -e .anvil.env -- forge script deploy/Deploy.s.sol --rpc-url http://localhost:8545 --broadcast",
+    "deploy:localhost": "pnpm run build && pnpm run deploy:localhost:script && pnpm run deploy:localhost:extract"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.3.0",
+    "solhint": "^3.3.7"
+  }
+}

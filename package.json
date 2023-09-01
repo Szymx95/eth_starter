@@ -1,0 +1,19 @@
+{
+  "name": "ethWarsaw_hackaton",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo build",
+    "build:storybook": "turbo build:storybook",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "check": "turbo build lint test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "turbo": "^1.10.13"
+  }
+}
